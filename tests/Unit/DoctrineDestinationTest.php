@@ -25,7 +25,13 @@ final class DoctrineDestinationTest extends TestCase
         $stmt->execute();
 
         $isDevMode = true;
-        $config = Setup::createAnnotationMetadataConfiguration(['/tmp'], $isDevMode);
+        $config = Setup::createAnnotationMetadataConfiguration(
+            [__DIR__.'/includes/TestClasses/Doctrine'],
+            $isDevMode,
+            null,
+            null,
+            false // doctrine/annotations v2 removed SimpleAnnotationReader
+        );
 
         $conn = [
             'driver' => 'pdo_sqlite',

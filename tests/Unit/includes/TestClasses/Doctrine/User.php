@@ -2,24 +2,26 @@
 
 namespace DivineOmega\uxdm\TestClasses\Doctrine;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * @Entity
- * @Table(name="users")
+ * @ORM\Entity
+ * @ORM\Table(name="users")
  */
 class User
 {
     /**
      * @var string
      *
-     * @Column(name="name", type="string", length=15, nullable=false)
-     * @Id
+     * @ORM\Column(name="name", type="string", length=15, nullable=false)
+     * @ORM\Id
      */
     protected $name;
 
     /**
      * @var int
      *
-     * @Column(name="value", type="integer", length=15, nullable=false)
+     * @ORM\Column(name="value", type="integer", length=15, nullable=false)
      */
     protected $value;
 
