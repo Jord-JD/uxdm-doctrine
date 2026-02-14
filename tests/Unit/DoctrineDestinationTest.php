@@ -1,9 +1,9 @@
 <?php
 
-use DivineOmega\uxdm\Objects\DataItem;
-use DivineOmega\uxdm\Objects\DataRow;
-use DivineOmega\uxdm\Objects\Destinations\DoctrineDestination;
-use DivineOmega\uxdm\TestClasses\Doctrine\User;
+use JordJD\uxdm\Objects\DataItem;
+use JordJD\uxdm\Objects\DataRow;
+use JordJD\uxdm\Objects\Destinations\DoctrineDestination;
+use JordJD\uxdm\TestClasses\Doctrine\User;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use PHPUnit\Framework\TestCase;

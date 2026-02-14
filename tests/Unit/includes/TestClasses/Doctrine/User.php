@@ -1,6 +1,6 @@
 <?php
 
-namespace DivineOmega\uxdm\TestClasses\Doctrine;
+namespace JordJD\uxdm\TestClasses\Doctrine;
 
 use Doctrine\ORM\Mapping as ORM;
 
