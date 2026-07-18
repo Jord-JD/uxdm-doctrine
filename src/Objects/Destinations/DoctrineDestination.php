@@ -4,18 +4,21 @@ namespace JordJD\uxdm\Objects\Destinations;
 
 use JordJD\uxdm\Interfaces\DestinationInterface;
 use JordJD\uxdm\Objects\DataRow;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class DoctrineDestination implements DestinationInterface
 {
     private $entityManager;
+    private $entityRepository;
+    private $entityClassName;
     private $propertyAccessor;
 
-    public function __construct(EntityManager $entityManager, $entityClassName)
+    public function __construct(EntityManagerInterface $entityManager, $entityClassName)
     {
         $this->entityManager = $entityManager;
         $this->entityRepository = $this->entityManager->getRepository($entityClassName);
+        $this->entityClassName = $entityClassName;
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
     }
 
@@ -38,7 +41,7 @@ class DoctrineDestination implements DestinationInterface
     {
         $dataItems = $dataRow->getDataItems();
 
-        $className = $this->entityRepository->getClassName();
+        $className = $this->entityClassName;
         $newRecord = new $className();
 
         foreach ($dataItems as $dataItem) {
@@ -46,7 +49,6 @@ class DoctrineDestination implements DestinationInterface
         }
 
         $this->entityManager->persist($newRecord);
-        $this->entityManager->flush();
     }
 
     private function updateDataRow(DataRow $dataRow)
@@ -66,7 +68,6 @@ class DoctrineDestination implements DestinationInterface
             $this->propertyAccessor->setValue($record, $dataItem->fieldName, $dataItem->value);
         }
 
-        $this->entityManager->flush();
     }
 
     public function putDataRows(array $dataRows): void
@@ -85,6 +86,8 @@ class DoctrineDestination implements DestinationInterface
                 $this->insertDataRow($dataRow);
             }
         }
+
+        $this->entityManager->flush();
     }
 
     public function finishMigration(): void
